@@ -5,9 +5,10 @@
 /*
 example:
 //import {tbr} from "https://telemok.github.io/telemok.com/js/tbr/tbr.assert.mjs"
-//import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@master/js/tbr.assert.mjs"
-let assoc = JSON.parse(someJson);
-let name = tbr.extract.varName(assoc, "userName", "Parsing server response");
+//import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr/tbr.assert.mjs"
+let assoc = {username: "John Smith", login: "JohnSmith"};
+let username = tbr.extract.string(assoc, "userName", "Parsing server response");
+let login` = tbr.extract.varName(assoc, "login", "You comment");
 */
 export var tbr = {};
 
