@@ -15,6 +15,19 @@
 //
 //---------------------------------------------------------------------
 
+
+/*
+example:
+//import {tbr} from "https://telemok.github.io/common/qrcode/qrcode.js"
+//import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/common/qrcode/qrcode.js"
+let qr = new qrcode();
+qr.addData("https://telemok.github.io/");
+qr.make();
+let img = qr.createImgElement(25, 25);//(oneSquareSizePixels, marginPixels)
+document.body.appendChild(img)
+*/
+
+
 export var qrcode = function() {
 
 	//---------------------------------------------------------------------
@@ -26,7 +39,7 @@ export var qrcode = function() {
 	 * @param typeNumber 1 to 40
 	 * @param errorCorrectionLevel 'L','M','Q','H'
 	 */
-	var qrcode = function(typeNumber, errorCorrectionLevel) {
+	var qrcode = function(typeNumber = 4, errorCorrectionLevel = 'M') {
 
 		var PAD0 = 0xEC;
 		var PAD1 = 0x11;
