@@ -4,8 +4,8 @@
 
 /*
 example:
-//import {tbr} from "https://telemok.github.io/ruweld.com/service/PopUpWindow.mjs"
-//import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/ruweld.com/service/PopUpWindow.mjs"
+//import {PopUpWindow} from "https://telemok.github.io/ruweld.com/service/PopUpWindow.mjs"
+//import {PopUpWindow} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/ruweld.com/service/PopUpWindow.mjs"
 
 example1, Simple:
 let pop = new PopUpWindow({html: `Example pop up`});
@@ -17,8 +17,8 @@ document.getElementById("button1").addEventListener("click",()=>{
 	`});
 	let count = 0;
 	let interval = setInterval(()=>{//start js animation in pop up
-		document.getElementById("divCounter").innerHTML = `count: ${count++}`
-        console.log(count);
+		document.getElementById("divCounter").innerHTML = `count: ${count}`
+        console.log(count++);
     }, 100);
 	popUp.addEventListener("close",()=>{
 		clearInterval(interval);//stop js animation in pop up
@@ -26,8 +26,8 @@ document.getElementById("button1").addEventListener("click",()=>{
 });
 */
 
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@2674b21/telemok.com/js/tbr/tbr.html.mjs"
-
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@27fd8b4/telemok.com/js/tbr/tbr.html.mjs"
+export {tbr};
 export class PopUpWindow extends tbr.Component
 {
 	constructor(parameters = {})
