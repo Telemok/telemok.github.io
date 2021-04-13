@@ -205,6 +205,23 @@ export class TbrEventTarget extends EventTarget
 }
 tbr.EventTarget = TbrEventTarget;
 
+tbr.addCSS = (cssText, errorName = 'tbr.addCSS')=>{
+	tbr.assert.string(cssText, errorName);
+	if(cssText.length >= 15)
+	{
+		let start = cssText.substr(0, 7).toLowerCase();
+		let end = cssText.substr(-8).toLowerCase();
+		if(start === '<style>' && end === '</style>')
+			cssText = cssText.substr(7, cssText.length - 15);
+	}
+	let elem = document.createElement('style');
+	elem.innerHTML = cssText;
+	(document.head||document.getElementsByTagName('head')[0]).appendChild(elem);//Обязательно добавлять в конец, чтобы новый стиль перезаписывал старый, а то некоторый йункционал перестанет работать.
+	return elem;
+}
+
+
+
 const symbol_TelemokView_countInstances = Symbol();
 const symbol_TelemokView_elemCss = Symbol();
 const symbol_TelemokView_textCss = Symbol();
@@ -254,9 +271,10 @@ export class TbrComponent extends tbr.EventTarget
 
 		if(!Number.isInteger(this.constructor[symbol_TelemokView_countInstances]))
 		{
-			TbrComponent_renderCss(this.constructor);
 			this.constructor[symbol_TelemokView_countInstances] = 0;
 		}
+		if(!this.constructor[symbol_TelemokView_countInstances])//if first time or after remove all
+			TbrComponent_renderCss(this.constructor);
 
 		this.constructor[symbol_TelemokView_countInstances]++;
 
