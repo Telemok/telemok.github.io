@@ -11,10 +11,11 @@ example:
 <SCRIPT type="module">
 //import {tbr} from "https://telemok.github.io/telemok.com/js/tbr/tbr.html.mjs"
 //import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr/tbr.html.mjs"
-class Row
+class Row extends tbr.Component
 {
 	constructor(parentTbody, caption)
 	{
+		super();
 		this.elems = new tbr.Elements();
 		parentTbody.insertAdjacentHTML('beforeend',`
 			<TR${this.elems.newId("trRow")}>
@@ -27,6 +28,7 @@ class Row
 	destroy()
 	{
 		this.elems.get("trRow").parentNode.removeChild(this.elems.get("trRow"));
+		super.destroy();
 	}
 }
 new Row(document.getElementById("tbody"), "row1");
@@ -119,3 +121,155 @@ export class TbrElements extends Map
 }
 
 tbr.Elements = TbrElements;
+
+const symbol_TbrEventListener = Symbol();
+export class TbrEventTarget extends EventTarget
+{
+	constructor(events)
+	{
+		super();
+		this[symbol_TbrEventListener] = new Map();
+		this[symbol_TbrEventListener].__AssertName=(eventName)=>
+		{
+			if(!this[symbol_TbrEventListener].has(eventName))
+			{
+				let listText = this.toStringEventNames();
+				throw new Error(`tbr.EventTarget(type="${eventName}" not supported). Try one of this: [${listText}].`);
+			}
+		}
+	}
+	addEventNames(eventName)
+	{
+		if(typeof eventName === 'object')
+		{
+			for(let i in eventName)
+				this.addEventNames(eventName[i]);
+			return;
+		}
+		tbr.assert.varName(eventName, `tbr.EventTarget.addEventNames`);
+		if(this[symbol_TbrEventListener].has(eventName))
+			throw `tbr.EventTarget.addEventNames(eventName: "${eventName}" exists)`;
+		this[symbol_TbrEventListener].set(eventName, {
+			counterListeners: 0,//counter may be used, if you don't want to do hard work for absent listeners
+			countDispatchs: 0});
+	}
+	reDispatchEvent(event)
+	{
+		let newEvent = new event.constructor(event.type, event);
+		this.dispatchEvent(newEvent);
+	}
+	dispatchEvent(event, isWriteErrorToConsole = false)
+	{
+		this[symbol_TbrEventListener].__AssertName(event.type);
+		this[symbol_TbrEventListener].get(event.type).countDispatchs++;
+		//event.__this = this;
+		if(isWriteErrorToConsole)
+		{
+			try{
+				super.dispatchEvent(event);
+			}catch(e){console.error(`Tbr.EventTarget.dispatchEvent error: ${e}`);}
+		}
+		else
+			super.dispatchEvent(event);
+	}
+	toStringEventNames()
+	{
+		return Array.from(this[symbol_TbrEventListener].keys()).join(', ');
+	}
+	toStringEventInfo()
+	{
+		let s = '';
+		for(let [type, value] of this[symbol_TbrEventListener])
+		{
+			let evAssoc = this[symbol_TbrEventListener].get(type);
+			let evJson = JSON.stringify(evAssoc);
+			s += `\n${type}: ${evJson}`;
+		}
+		return s;
+	}
+	addEventListener(type, listener, options)
+	{
+		this[symbol_TbrEventListener].__AssertName(type);
+		if(typeof(listener)!=='function' /*&& !(options.dontThrowOnWrongType)*/)
+			throw new Error(`tbr.EventTarget.addEventListener(type = "${type}", typeof listener="${typeof listener}"}, required typeof "function".`);
+		console.log(this[symbol_TbrEventListener].get(type))
+		this[symbol_TbrEventListener].get(type).counterListeners++;
+		super.addEventListener(type, listener, options);
+	}
+	removeEventListener(type, listener, options)
+	{
+		this[symbol_TbrEventListener].__AssertName(type);
+		this[symbol_TbrEventListener].get(type).counterListeners--;//TODO. May if if listener null it remove more listeners
+		super.removeEventListener(type, listener, options);
+	}
+}
+tbr.EventTarget = TbrEventTarget;
+
+const symbol_TelemokView_countInstances = Symbol();
+const symbol_TelemokView_elemCss = Symbol();
+const symbol_TelemokView_textCss = Symbol();
+const symbol_TelemokView_destroyed = Symbol();
+function TbrComponent_renderCss(Class)
+{
+	if(typeof Class[symbol_TelemokView_textCss] !== 'string'
+		|| Class[symbol_TelemokView_textCss].length === 0
+		|| Class[symbol_TelemokView_elemCss]
+	)
+		return;
+
+	let elem = document.createElement('style');
+	elem.innerHTML = Class[symbol_TelemokView_textCss];
+	(document.head||document.getElementsByTagName('head')[0]).appendChild(elem);//Обязательно добавлять в конец, чтобы новый стиль перезаписывал старый, а то некоторый йункционал перестанет работать.
+	Class[symbol_TelemokView_elemCss] = elem;
+}
+function TbrComponent_removeCss(Class)
+{
+	if(!Class[symbol_TelemokView_elemCss])
+		return;
+	(document.head||document.getElementsByTagName('head')[0]).removeChild(Class[symbol_TelemokView_elemCss]);
+	Class[symbol_TelemokView_elemCss] = 0;
+}
+export class TbrComponent extends tbr.EventTarget
+{
+	static setupCSS(cssText)
+	{
+		if(typeof cssText !== 'string')
+			throw `tbr.Component.setupCSS("${typeof cssText}" not string)`;
+		if(cssText.length >= 15)
+		{
+			let start = cssText.substr(0, 7).toLowerCase();
+			let end = cssText.substr(-8).toLowerCase();
+			if(start === '<style>' && end === '</style>')
+				cssText = cssText.substr(7, cssText.length - 15);
+		}
+		this[symbol_TelemokView_textCss] = cssText;
+		TbrComponent_removeCss(this);
+		if(this[symbol_TelemokView_countInstances] > 0)
+			TbrComponent_renderCss(this);
+	}
+
+	constructor()
+	{
+		super();
+
+		if(!Number.isInteger(this.constructor[symbol_TelemokView_countInstances]))
+		{
+			TbrComponent_renderCss(this.constructor);
+			this.constructor[symbol_TelemokView_countInstances] = 0;
+		}
+
+		this.constructor[symbol_TelemokView_countInstances]++;
+
+	}
+	destroy()
+	{
+		if(this[symbol_TelemokView_destroyed])
+			throw new Error(`tbr.Component was destroyed`);
+		if(!(--this.constructor[symbol_TelemokView_countInstances]))
+			TbrComponent_removeCss(this.constructor);
+		this[symbol_TelemokView_destroyed] = true;
+	}
+}
+
+
+tbr.Component = TbrComponent;
