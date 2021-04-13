@@ -8,12 +8,12 @@ example:
 //import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr.mjs"
 */
 
-import {tbr as tbr1} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@84150f4/js/tbr.BitBuffer.mjs"
-import {tbr as tbr2} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@84150f4/js/tbr.assert.mjs"
-import {tbr as tbr3} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@84150f4/js/tbr.convert.mjs"
-import {tbr as tbr4} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@84150f4/js/tbr.html.mjs"
-import {tbr as tbr5} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@84150f4/js/tbr.time.mjs"
-import {tbr as tbr6} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@84150f4/js/tbr.request.mjs"
+import {tbr as tbr1} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@2674b21/js/tbr.BitBuffer.mjs"
+import {tbr as tbr2} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@2674b21/js/tbr.assert.mjs"
+import {tbr as tbr3} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@2674b21/js/tbr.convert.mjs"
+import {tbr as tbr4} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@2674b21/js/tbr.html.mjs"
+import {tbr as tbr5} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@2674b21/js/tbr.time.mjs"
+import {tbr as tbr6} from "https://cdn.jsdelivr.net/gh/telemok/com.telemok@2674b21/js/tbr.request.mjs"
 var tbr = {...tbr1, ...tbr2, ...tbr3, ...tbr4, ...tbr5, ...tbr6}
 export {tbr};
 
