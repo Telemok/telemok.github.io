@@ -192,7 +192,6 @@ export class TbrEventTarget extends EventTarget
 		this[symbol_TbrEventListener].__AssertName(type);
 		if(typeof(listener)!=='function' /*&& !(options.dontThrowOnWrongType)*/)
 			throw new Error(`tbr.EventTarget.addEventListener(type = "${type}", typeof listener="${typeof listener}"}, required typeof "function".`);
-		console.log(this[symbol_TbrEventListener].get(type))
 		this[symbol_TbrEventListener].get(type).counterListeners++;
 		super.addEventListener(type, listener, options);
 	}
@@ -286,6 +285,7 @@ export class TbrComponent extends tbr.EventTarget
 		if(!(--this.constructor[symbol_TelemokView_countInstances]))
 			TbrComponent_removeCss(this.constructor);
 		this[symbol_TelemokView_destroyed] = true;
+		delete(this);//TODO
 	}
 }
 
