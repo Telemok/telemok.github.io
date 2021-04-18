@@ -25,7 +25,7 @@ document.getElementById("button1").addEventListener("click",()=>{
     });
 });
 */
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@cbe0617/telemok.com/js/tbr.mjs"
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@023e19a/telemok.com/js/tbr.mjs"
 export {tbr};
 export class PopUpWindow extends tbr.Component
 {
