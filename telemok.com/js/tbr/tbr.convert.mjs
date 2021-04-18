@@ -10,7 +10,7 @@ example:
 let a = convert.hexToUint8Array("ABCD");
 */
 
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@3c9965e/telemok.com/js/tbr/tbr.assert.mjs"
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@b48a139/telemok.com/js/tbr/tbr.assert.mjs"
 export {tbr};
 tbr.convert = {};
 export var convert = tbr.convert;
