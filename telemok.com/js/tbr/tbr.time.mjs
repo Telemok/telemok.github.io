@@ -10,7 +10,7 @@ let timestamp = new tbr.time.Date();
 timestamp.setCurrent();
 console.log(timestamp.getUtcSql());// "2021-04-05 6:07:08"
 */
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr/tbr.assert.mjs"
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@3c9965e/telemok.com/js/tbr/tbr.assert.mjs"
 export {tbr};
 tbr.time = {};
 export var time = tbr.time;
