@@ -5,14 +5,14 @@
 example:
 //import {tbr} from "https://telemok.github.io/telemok.com/js/tbr/tbr.BitBuffer.mjs"
 //import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr/tbr.BitBuffer.mjs"
-let b = new TbrBitBuffer();
+let b = new tbr.BitBuffer();
 b.importHex("AABBCCDDEE");
 let adcVoltage = b.shiftUint(12);//get first 12 bits
 let isPowerOn = b.shiftBool();
 */
 
 
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr/tbr.convert.mjs"
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@e756fbe/telemok.com/js/tbr/tbr.convert.mjs"
 export {tbr};
 
 /*LSB Bit Buffer*/
