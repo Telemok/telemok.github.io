@@ -12,6 +12,8 @@ let login` = tbr.extract.varName(assoc, "login", "You comment");
 */
 export var tbr = {};
 
+
+
 class TbrAssertError extends Error
 {
 	constructor(name = "TbrAssertError")
@@ -411,13 +413,6 @@ tbr.extract.uint8Array=function(parameters, extractKey, errorPrefix='tbr.extract
 };
 
 
-
-
-
-
-
-var tbrAssert = tbr.assert;
-var tbrValidate = tbr.validate;
-var tbrExtract = tbr.extract;
-export {tbrAssert as assert, tbrValidate as validate, tbrExtract as extract};
-
+export var assert = tbr.assert;
+export var validate = tbr.validate;
+export var extract = tbr.extract;
