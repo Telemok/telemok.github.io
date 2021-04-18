@@ -8,7 +8,7 @@ example:
 	<TBODY id="tbody">
 	</TBODY>
 </TABLE>
-<SCRIPT type="module">
+<SC(del)RIPT type="module">
 //import {tbr} from "https://telemok.github.io/telemok.com/js/tbr/tbr.html.mjs"
 //import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/telemok.com/js/tbr/tbr.html.mjs"
 class Row extends tbr.Component
@@ -34,7 +34,7 @@ class Row extends tbr.Component
 new Row(document.getElementById("tbody"), "row1");
 new Row(document.getElementById("tbody"), "row2");
 new Row(document.getElementById("tbody"), "row3");
-</SCRIPT>
+</SC(del)RIPT>
 */
 
 
