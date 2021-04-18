@@ -12,7 +12,7 @@ let isPowerOn = b.shiftBool();
 */
 
 
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@e756fbe/telemok.com/js/tbr/tbr.convert.mjs"
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@c496d30/telemok.com/js/tbr/tbr.convert.mjs"
 export {tbr};
 
 /*LSB Bit Buffer*/
