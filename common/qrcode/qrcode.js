@@ -20,7 +20,7 @@
 example:
 //import {qrcode} from "https://telemok.github.io/common/qrcode/qrcode.js"
 //import {qrcode} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@master/common/qrcode/qrcode.js"
-let qr = new qrcode();
+let qr = new qrcode(8);
 qr.addData("https://example.com/");
 qr.make();
 let img = qr.createImgElement(16, 16);//(oneSquareSizePixels, marginPixels). 16 - JPG block size
