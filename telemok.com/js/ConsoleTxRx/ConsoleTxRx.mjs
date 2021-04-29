@@ -18,7 +18,7 @@ console.error(`Rightclick for looking call stack`);
 */
 
 
-import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@915e27e/telemok.com/js/tbr.mjs"
+import {tbr} from "https://cdn.jsdelivr.net/gh/telemok/telemok.github.io@023e19a/telemok.com/js/tbr.mjs"
 
 
 export class ConsoleTxRx extends tbr.Component
